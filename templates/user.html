@@ -1,0 +1,17 @@
+<div class="container">
+{% if user.Avatar != 0 %}
+<img class="avatar" src="/i/{{user.Avatar}}/file" alt="{{user.Name}}'s Avatar" />
+{% else %}
+<img class="avatar" src="/public/img/anon.svg" alt="Default Avatar" />
+{% endif %}
+<h1 class="name">{{user.Name}}</h1>
+<h3 class="rank">{{user.Rank}}</h3>
+</div>
+
+<p>{{user.Bio}}</p>
+
+<p class="facts"><i>
+  ID: <code>{{user.ID}}</code><br>
+  Registered on {{user.Registered.Format("Mon Jan _2 15:04:05 2006")}},
+  last logged in on {{user.LastLogin.Format("Mon Jan _2 15:04:05 2006")}}
+</i></p>

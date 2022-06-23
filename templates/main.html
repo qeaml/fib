@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/public/style/main.css">
+
+{% for style in _styles %}
+  <!-- Stylesheet: {{style}} -->
+  <link rel="stylesheet" href="/public/style/{{ style }}.css">
+{% endfor %}
+
+{% for style in _estyles %}
+  <!-- External Stylesheet: {{style}} -->
+  <link rel="stylesheet" href="{{ style }}">
+{% endfor %}
+
+{% for script in _scripts %}
+  <!-- Script: {{script}} -->
+  <script src="/public/script/{{ script }}.js"></script>
+{% endfor %}
+
+{% for script in _escripts %}
+  <!-- External Script: {{script}} -->
+  <script src="{{ script }}"></script>
+{% endfor %}
+
+{% if _title %}
+  <title>{{ _title }}</title>
+{% else %}
+  <!-- NOTE: This page does not specify a title. -->
+  <title>Untitled Page</title>
+{% endif %}
+
+</head>
+<body>
+<main>
+{{embed}}
+</main>
+</body>
+</html>

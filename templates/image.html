@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="image-outer">
+  <img class="image" src="/i/{{image.ID}}/file" alt="{{image.Title}}" />
+  </div>
+  <h1 class="title">{{image.Title}}</h1>
+  <h3 class="uploader">Uploaded by <a href="/u/{{image.Uploader}}">{{image.Uploader}}</a></h3>
+  <p>{{image.Desc}}</p>
+  <p class="tags">
+    {% for tag in image.Tags %}
+    <code>{{tag}}</code>,&nbsp;
+    {% endfor %}
+  </p>
+  <p class="facts"><i>
+    ID: <code>{{image.ID}}</code><br>
+    Visibility: {{image.Visibility}}<br>
+    Uploaded on {{image.UploadedAt.Format("Mon Jan _2 15:04:05 2006")}},
+    last updated on {{image.UpdatedAt.Format("Mon Jan _2 15:04:05 2006")}}
+  </i></p>
+</div>

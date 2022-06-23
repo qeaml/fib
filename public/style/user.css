@@ -1,0 +1,23 @@
+.container {
+  margin: 2rem;
+}
+
+.avatar {
+  max-width: 10rem;
+  max-height: 10rem;
+  margin: 1rem 2rem;
+  float: left;
+}
+
+.name {
+  margin: 0rem;
+}
+
+.rank {
+  margin: 0rem;
+}
+
+.facts {
+  font-size: 50%;
+  opacity: 0.5;
+}

@@ -1,0 +1,3 @@
+[submodule "public/frontend"]
+	path = public/frontend
+	url = https://github.com/qeaml/frontend
