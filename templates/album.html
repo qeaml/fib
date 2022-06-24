@@ -1,0 +1,20 @@
+<div class="container">
+  <h1>{{album.Title}}</h1>
+  <p>{{album.Desc}}</p>
+  <div class="images">
+    {% for image in images %}
+    <div class="imgbox">
+      <a href="/i/{{image.ID}}">
+        <img class="image" src="/i/{{image.ID}}/file" alt="{{image.Title}}" />
+        <br/>
+        <em class="title">{{image.Title}}</em>
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+  <p class="facts"><i>
+    ID: <code>{{album.ID}}</code><br>
+    Visibility: {{album.Visibility}}<br>
+    Uploaded on {{album.UploadedAt.Format("Mon Jan _2 15:04:05 2006")}},
+    last updated on {{album.UpdatedAt.Format("Mon Jan _2 15:04:05 2006")}}
+</div>

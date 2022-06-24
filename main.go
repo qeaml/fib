@@ -69,6 +69,25 @@ func ImageFile(c *fiber.Ctx) error {
 	return c.SendStatus(http.StatusNotFound)
 }
 
+func Album(c *fiber.Ctx) error {
+	id := c.Params("id")
+	if album, ok := gallery.Albums[id]; ok {
+		images := []*gallery.Image{}
+		for _, image := range gallery.Images {
+			if image.Album == id {
+				images = append(images, image)
+			}
+		}
+		return c.Render("album", fiber.Map{
+			"album":   album,
+			"images":  images,
+			"_title":  fmt.Sprintf("Album :: %s", album.Title),
+			"_styles": []string{"album"},
+		})
+	}
+	return Error(http.StatusNotFound, "Album not found", c)
+}
+
 //go:embed templates
 var templates embed.FS
 
@@ -101,15 +120,38 @@ func main() {
 			LastLogin:  time.Now(),
 		}
 		gallery.Users["sys"] = user
-		if err := gallery.SaveUsers(); err != nil {
-			log.Fatalln(err)
-		}
 	} else {
 		sys.LastLogin = time.Now()
 		gallery.Users["sys"] = sys
-		if err := gallery.SaveUsers(); err != nil {
-			log.Fatalln(err)
+	}
+	if err := gallery.SaveUsers(); err != nil {
+		log.Fatalln(err)
+	}
+
+	log.Println("Loading albums...")
+	if err := gallery.LoadAlbums(); err != nil {
+		log.Fatalln(err)
+	}
+	log.Printf("Loaded %d albums\n", len(gallery.Albums))
+
+	if sample, ok := gallery.Albums["sample"]; !ok {
+		log.Println("Creating sample album...")
+		album := &gallery.Album{
+			ID:         "sample",
+			Flags:      gallery.ImageFlagNone,
+			Uploader:   "sys",
+			Title:      "Sample Album",
+			Desc:       "This is a sample album. It contains a few sample images.",
+			UploadedAt: time.Now(),
+			UpdatedAt:  time.Now(),
 		}
+		gallery.Albums["sample"] = album
+	} else {
+		sample.UpdatedAt = time.Now()
+		gallery.Albums["sample"] = sample
+	}
+	if err := gallery.SaveAlbums(); err != nil {
+		log.Fatalln(err)
 	}
 
 	log.Println("Loading images...")
@@ -126,20 +168,18 @@ func main() {
 			Title:      "Sample image",
 			Desc:       "This is a sample image",
 			Tags:       []string{"sample", "image"},
+			Album:      "sample",
 			Uploader:   "sys",
 			UploadedAt: time.Now(),
 			UpdatedAt:  time.Now(),
 		}
 		gallery.Images[0] = image
-		if err := gallery.SaveImages(); err != nil {
-			log.Fatalln(err)
-		}
 	} else {
 		sample.UpdatedAt = time.Now()
 		gallery.Images[0] = sample
-		if err := gallery.SaveImages(); err != nil {
-			log.Fatalln(err)
-		}
+	}
+	if err := gallery.SaveImages(); err != nil {
+		log.Fatalln(err)
 	}
 
 	log.Println("Starting server...")
@@ -159,6 +199,7 @@ func main() {
 	app.Get("/u/:id", User)
 	app.Get("/i/:id/file", ImageFile)
 	app.Get("/i/:id", Image)
+	app.Get("/a/:id", Album)
 	app.Static("/public", "public")
 
 	app.Use(func(c *fiber.Ctx) error {

@@ -52,6 +52,7 @@ func EncodeJSON(fn string, data interface{}) error {
 
 var Users = map[string]*User{}
 var Images = map[uint32]*Image{}
+var Albums = map[string]*Album{}
 
 func LoadUsers() error {
 	return DecodeJSON("data/users.json", &Users)
@@ -61,10 +62,18 @@ func LoadImages() error {
 	return DecodeJSON("data/images.json", &Images)
 }
 
+func LoadAlbums() error {
+	return DecodeJSON("data/albums.json", &Albums)
+}
+
 func SaveUsers() error {
 	return EncodeJSON("data/users.json", Users)
 }
 
 func SaveImages() error {
 	return EncodeJSON("data/images.json", Images)
+}
+
+func SaveAlbums() error {
+	return EncodeJSON("data/albums.json", Albums)
 }

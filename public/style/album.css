@@ -1,0 +1,30 @@
+.container {
+  margin: 2rem;
+}
+
+.images {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.imgbox {
+  text-align: center;
+}
+
+.image {
+  max-width: 10rem;
+  max-height: 10rem;
+}
+
+.title {
+  font-size: 50%;
+  text-decoration: none;
+}
+
+.facts {
+  font-size: 50%;
+  opacity: 0.5;
+}

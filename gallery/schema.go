@@ -50,6 +50,7 @@ type Image struct {
 	Title      string
 	Desc       string
 	Tags       []string
+	Album      string
 	Uploader   string
 	UploadedAt time.Time
 	UpdatedAt  time.Time
@@ -63,6 +64,30 @@ func (i *Image) Visibility() string {
 		return "Private"
 	}
 	if i.Flags&ImageFlagNSFW != 0 {
+		return "NSFW"
+	}
+	return "Public"
+}
+
+type Album struct {
+	ID         string
+	Flags      ImageFlag
+	Title      string
+	Desc       string
+	Tags       []string
+	Uploader   string
+	UploadedAt time.Time
+	UpdatedAt  time.Time
+}
+
+func (a *Album) Visibility() string {
+	if a.Flags&ImageFlagHidden != 0 {
+		return "Hidden"
+	}
+	if a.Flags&ImageFlagPrivate != 0 {
+		return "Private"
+	}
+	if a.Flags&ImageFlagNSFW != 0 {
 		return "NSFW"
 	}
 	return "Public"

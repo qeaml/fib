@@ -3,7 +3,9 @@
   <img class="image" src="/i/{{image.ID}}/file" alt="{{image.Title}}" />
   </div>
   <h1 class="title">{{image.Title}}</h1>
-  <h3 class="uploader">Uploaded by <a href="/u/{{image.Uploader}}">{{image.Uploader}}</a></h3>
+  <h3 class="uploader">
+    Uploaded by <a href="/u/{{image.Uploader}}">{{image.Uploader}}</a>
+    in album <a href="/a/{{image.Album}}">{{image.Album}}</a></h3>
   <p>{{image.Desc}}</p>
   <p class="tags">
     {% for tag in image.Tags %}

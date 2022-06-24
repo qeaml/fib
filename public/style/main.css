@@ -8,3 +8,10 @@
   padding: 0;
   text-rendering: optimizeLegibility;
 }
+
+a {
+  color: #ccffdd;
+  text-decoration: none;
+  font-weight: bold;
+  font-style: italic;
+}
