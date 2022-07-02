@@ -69,6 +69,15 @@ func (i *Image) Visibility() string {
 	return "Public"
 }
 
+// Public returns true if the image is not private or hidden
+func (i *Image) Public() bool {
+	return i.Flags&(ImageFlagPrivate|ImageFlagHidden) == 0
+}
+
+func (i *Image) NSFW() bool {
+	return i.Flags&ImageFlagNSFW != 0
+}
+
 type Album struct {
 	ID         string
 	Flags      ImageFlag

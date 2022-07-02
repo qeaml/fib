@@ -28,3 +28,7 @@
   font-size: 50%;
   opacity: 0.5;
 }
+
+.nsfw {
+  filter: blur(2px);
+}

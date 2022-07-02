@@ -3,13 +3,22 @@
   <p>{{album.Desc}}</p>
   <div class="images">
     {% for image in images %}
+    {% if image.Public %}
     <div class="imgbox">
       <a href="/i/{{image.ID}}">
-        <img class="image" src="/i/{{image.ID}}/file" alt="{{image.Title}}" />
+        <img
+          {% if image.NSFW %}
+          class="image nsfw"
+          {% else %}
+          class="image"
+          {% endif %}
+          src="/i/{{image.ID}}/file"
+          alt="{{image.Title}}" />
         <br/>
         <em class="title">{{image.Title}}</em>
       </a>
     </div>
+    {% endif %}
     {% endfor %}
   </div>
   <p class="facts"><i>
